@@ -1,4 +1,4 @@
-package com.abdule.model;
+package com.abdule.enums;
 
 public enum AppointmentStatusEnum {
     BOOKED,

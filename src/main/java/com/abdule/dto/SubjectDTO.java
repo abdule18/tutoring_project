@@ -1,4 +1,4 @@
-package com.abdule.model.dto;
+package com.abdule.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;

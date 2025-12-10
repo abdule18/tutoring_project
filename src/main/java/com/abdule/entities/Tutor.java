@@ -1,4 +1,4 @@
-package com.abdule.model;
+package com.abdule.entities;
 
 import jakarta.persistence.*;
 import lombok.*;

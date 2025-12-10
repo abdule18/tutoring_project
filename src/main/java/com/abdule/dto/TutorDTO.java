@@ -1,9 +1,14 @@
-package com.abdule.model.dto;
+package com.abdule.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +21,9 @@ public class TutorDTO {
     private String lastName;
 
     @NotBlank(message = "Email is required")
+    @Email(message = "Email must be valid")
     private String email;
+
+    @NotEmpty(message = "At least one subjectId is required")
+    private List<UUID> subjectIds;
 }

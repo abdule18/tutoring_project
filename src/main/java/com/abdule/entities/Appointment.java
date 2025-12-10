@@ -1,5 +1,6 @@
-package com.abdule.model;
+package com.abdule.entities;
 
+import com.abdule.enums.AppointmentStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

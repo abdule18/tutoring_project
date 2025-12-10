@@ -1,4 +1,4 @@
-package com.abdule.domain.entities;
+package com.abdule.domain;
 
 public class CreateEventRequest {
 }
