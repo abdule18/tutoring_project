@@ -1,4 +1,4 @@
-package com.abdule.dto;
+package com.abdule.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDTO {
+public class StudentRequestDTO {
 
     @NotBlank(message = "First name is required")
     private String firstName;
@@ -19,4 +19,9 @@ public class StudentDTO {
     @NotBlank(message = "Email is required")
     @Email(message = "Email must be valid")
     private String email;
+
+    @NotBlank(message = "password is required")
+    @Email(message = "Password must be valid")
+    private String password;
+
 }

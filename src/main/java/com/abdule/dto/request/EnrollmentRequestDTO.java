@@ -1,4 +1,4 @@
-package com.abdule.dto;
+package com.abdule.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnrollmentDTO {
+public class EnrollmentRequestDTO {
 
     @NotNull(message = "Student ID is required")
     private UUID studentId;

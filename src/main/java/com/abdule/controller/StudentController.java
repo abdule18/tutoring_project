@@ -1,7 +1,7 @@
 package com.abdule.controller;
 
 import com.abdule.entities.Student;
-import com.abdule.dto.StudentDTO;
+import com.abdule.dto.request.StudentRequestDTO;
 import com.abdule.services.StudentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class StudentController {
 
 
     @PostMapping("/student")
-    public ResponseEntity<Student> createNewStudent(@Valid @RequestBody StudentDTO student){
+    public ResponseEntity<Student> createNewStudent(@Valid @RequestBody StudentRequestDTO student){
         Student saved = studentService.createNewStudent(student);
 //        return studentService.createNewStudent(student);
         return ResponseEntity.status(201).body(saved);
