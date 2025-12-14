@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TutorDTO {
+public class TutorRequestDTO {
     @NotBlank(message = "First name is required")
     private String firstName;
 

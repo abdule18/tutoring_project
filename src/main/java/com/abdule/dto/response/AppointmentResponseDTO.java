@@ -1,8 +1,6 @@
-package com.abdule.dto.request;
+package com.abdule.dto.response;
 
 import com.abdule.enums.AppointmentStatusEnum;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +11,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentRequestDTO {
+public class AppointmentResponseDTO {
 
+    private UUID id;
 
     private UUID studentId;
 
@@ -27,4 +26,6 @@ public class AppointmentRequestDTO {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    private AppointmentStatusEnum status;
 }

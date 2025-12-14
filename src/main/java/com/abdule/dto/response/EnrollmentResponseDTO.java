@@ -1,7 +1,7 @@
 package com.abdule.dto.response;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,13 +11,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class StudentResponseDTO {
+public class EnrollmentResponseDTO {
 
-    private UUID id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private UUID studentId;
+
+    private UUID subjectId;
+
+    private UUID enrollmentId;
+    
     private Instant createdAt;
-    private Instant updatedAt;
 }

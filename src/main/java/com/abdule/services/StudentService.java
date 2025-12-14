@@ -36,6 +36,10 @@ public class StudentService {
                 .build();
     }
 
+    public StudentRepository getStudentRepository() {
+        return studentRepository;
+    }
+
     public List<Student> findAllStudent(){
         return studentRepository.findAll();
     }

@@ -24,7 +24,7 @@ public class StudentController {
 
     @PostMapping("/student")
     public ResponseEntity<Student> createNewStudent(@Valid @RequestBody StudentRequestDTO student){
-        Student saved = studentService.createNewStudent(student);
+        StudentRequestDTO saved = studentService.createNewStudent(student);
 //        return studentService.createNewStudent(student);
         return ResponseEntity.status(201).body(saved);
     }
