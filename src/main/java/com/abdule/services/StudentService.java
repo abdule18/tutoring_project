@@ -1,6 +1,7 @@
 package com.abdule.services;
 
 
+import com.abdule.dto.response.StudentResponseDTO;
 import com.abdule.exceptions.StudentExistsException;
 import com.abdule.entities.Student;
 import com.abdule.dto.request.StudentRequestDTO;
@@ -16,7 +17,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentRequestDTO createNewStudent(StudentRequestDTO student) {
+    public StudentResponseDTO createNewStudent(StudentRequestDTO student) {
         if(studentRepository.existsByEmail(student.getEmail())){
             throw new StudentExistsException("This email already exists!");
         }
@@ -25,19 +26,17 @@ public class StudentService {
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName())
                 .email(student.getEmail())
+//                .password(student.getPassword())
                 .build();
 
-        studentRepository.save(stu);
-        return StudentRequestDTO.builder()
-                .firstName(student.getFirstName())
-                .lastName(student.getLastName())
-                .email(student.getEmail())
-                .password(student.getPassword())
-                .build();
-    }
+        Student saved = studentRepository.save(stu);
 
-    public StudentRepository getStudentRepository() {
-        return studentRepository;
+        return StudentResponseDTO.builder()
+                .id(saved.getId())
+                .firstName(saved.getFirstName())
+                .lastName(saved.getLastName())
+                .email(saved.getEmail())
+                .build();
     }
 
     public List<Student> findAllStudent(){

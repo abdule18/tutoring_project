@@ -1,5 +1,6 @@
 package com.abdule.controller;
 
+import com.abdule.dto.response.StudentResponseDTO;
 import com.abdule.entities.Student;
 import com.abdule.dto.request.StudentRequestDTO;
 import com.abdule.services.StudentService;
@@ -23,9 +24,8 @@ public class StudentController {
 
 
     @PostMapping("/student")
-    public ResponseEntity<Student> createNewStudent(@Valid @RequestBody StudentRequestDTO student){
-        StudentRequestDTO saved = studentService.createNewStudent(student);
-//        return studentService.createNewStudent(student);
+    public ResponseEntity<StudentResponseDTO> createNewStudent(@Valid @RequestBody StudentRequestDTO student){
+        StudentResponseDTO saved = studentService.createNewStudent(student);
         return ResponseEntity.status(201).body(saved);
     }
 
