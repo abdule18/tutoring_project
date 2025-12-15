@@ -118,4 +118,11 @@ public class StudentService {
                 .updatedAt(saved.getUpdatedAt())
                 .build();
     }
+
+    public void deleteStudent(UUID id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        studentRepository.delete(student);
+    }
 }
