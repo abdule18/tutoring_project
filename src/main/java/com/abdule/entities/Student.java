@@ -1,5 +1,6 @@
 package com.abdule.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,6 +37,7 @@ public class Student {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @CreationTimestamp
@@ -48,27 +50,14 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(
-                getId(), student.getId()
-        ) && Objects.equals(
-                getFirstName(), student.getFirstName()
-        ) && Objects.equals(
-                getLastName(), student.getLastName()
-        ) && Objects.equals(
-                getEmail(), student.getEmail()
-        ) && Objects.equals(
-                getCreatedAt(), student.getCreatedAt()
-        ) && Objects.equals(
-                getUpdatedAt(), student.getUpdatedAt()
-        );
+        if (this == o) return true;
+        if (!(o instanceof Student other)) return false;
+        return id != null && id.equals(other.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                getId(), getFirstName(), getLastName(), getEmail(), getCreatedAt(), getUpdatedAt()
-        );
+        return getClass().hashCode();
     }
+
 }

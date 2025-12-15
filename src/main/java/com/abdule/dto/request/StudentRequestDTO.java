@@ -21,7 +21,6 @@ public class StudentRequestDTO {
     private String email;
 
     @NotBlank(message = "password is required")
-    @Email(message = "Password must be valid")
     private String password;
 
 }
