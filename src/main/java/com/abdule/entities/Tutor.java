@@ -40,15 +40,6 @@ public class Tutor {
     )
     private List<Subject> subjects = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(
-            name = "tutor_subjects",
-            joinColumns = @JoinColumn(name = "tutor_id")
-    )
-    @Column(name = "subject_id")
-    private List<UUID> subjectIds;
-
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
