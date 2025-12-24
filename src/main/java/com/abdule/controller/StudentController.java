@@ -49,7 +49,7 @@ public class StudentController {
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> deleteStudent(@PathVariable UUID id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();

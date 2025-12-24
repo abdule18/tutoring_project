@@ -1,6 +1,7 @@
 package com.abdule.dto.request;
 
 import com.abdule.enums.AppointmentStatusEnum;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,9 @@ public class AppointmentRequestDTO {
     private UUID subjectId;
 
     private UUID roomId;
+
+    @NotNull(message = "status is required")
+    private AppointmentStatusEnum status;
 
     private LocalDateTime startTime;
 
