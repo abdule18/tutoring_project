@@ -14,11 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class EnrollmentResponseDTO {
 
+    private UUID enrollmentId;
+
     private UUID studentId;
 
     private UUID subjectId;
 
-    private UUID enrollmentId;
-    
     private Instant createdAt;
 }
