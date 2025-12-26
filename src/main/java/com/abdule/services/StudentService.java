@@ -86,7 +86,7 @@ public class StudentService {
                 .build();
     }
 
-    public StudentResponseDTO updateStudent(UUID id, @Valid StudentResponseDTO request) {
+    public StudentResponseDTO updateStudent(UUID id, @Valid StudentRequestDTO request) {
 
         // Step 1: Find existing student
         Student existing = studentRepository.findById(id)

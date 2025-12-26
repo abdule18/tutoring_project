@@ -43,7 +43,7 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> updateStudent(
             @PathVariable UUID id,
-            @Valid @RequestBody StudentResponseDTO request
+            @Valid @RequestBody StudentRequestDTO request
     ) {
         StudentResponseDTO updated = studentService.updateStudent(id, request);
         return ResponseEntity.ok(updated);

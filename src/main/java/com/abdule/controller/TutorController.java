@@ -38,7 +38,7 @@ public class TutorController {
     @PutMapping("/{id}")
     public ResponseEntity<TutorResponseDTO> updateTutor(
             @PathVariable UUID id,
-            @Valid @RequestBody TutorResponseDTO request
+            @Valid @RequestBody TutorRequestDTO request
     ) {
         TutorResponseDTO updated = tutorService.updateTutor(id, request);
         return ResponseEntity.ok(updated);

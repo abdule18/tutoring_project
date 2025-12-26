@@ -4,7 +4,6 @@ import com.abdule.dto.request.AppointmentRequestDTO;
 import com.abdule.dto.response.AppointmentResponseDTO;
 import com.abdule.entities.*;
 import com.abdule.repositories.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -135,7 +134,6 @@ public class AppointmentService {
                 .endTime(saved.getEndTime())
                 .status(saved.getStatus())
                 .build();
-
 
     }
 

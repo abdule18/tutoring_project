@@ -113,7 +113,7 @@ public class TutorService {
                 .build();
     }
 
-    public TutorResponseDTO updateTutor(UUID id, TutorResponseDTO request) {
+    public TutorResponseDTO updateTutor(UUID id, TutorRequestDTO request) {
         Tutor existingTutor = tutorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tutor Not found"));
 
