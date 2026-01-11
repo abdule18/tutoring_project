@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,4 +31,6 @@ public class AppointmentResponseDTO {
     private LocalDateTime endTime;
 
     private AppointmentStatusEnum status;
+
+    private Instant cancelledAt;
 }

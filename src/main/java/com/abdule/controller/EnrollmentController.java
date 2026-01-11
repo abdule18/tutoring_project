@@ -47,5 +47,4 @@ public class EnrollmentController {
         enrollmentService.deleteEnrollment(id);
         return ResponseEntity.noContent().build();
     }
-
 }

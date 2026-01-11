@@ -46,7 +46,13 @@ public class AppointmentController {
         return ResponseEntity.ok(updated);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/{id}")
+    public ResponseEntity<AppointmentResponseDTO> cancelAppointment(@PathVariable UUID id) {
+        AppointmentResponseDTO  cancelled = appointmentService.cancelAppointment(id);
+        return ResponseEntity.ok(cancelled);
+    }
+
+        @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable UUID id) {
         appointmentService.deleteAppointment(id);
         return  ResponseEntity.noContent().build();

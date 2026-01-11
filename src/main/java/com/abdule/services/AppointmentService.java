@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import com.abdule.enums.AppointmentStatusEnum;
+import java.time.Instant;
 
 @Service
 @AllArgsConstructor
@@ -56,6 +58,7 @@ public class AppointmentService {
                 .startTime(saved.getStartTime())
                 .endTime(saved.getEndTime())
                 .status(saved.getStatus())
+                .cancelledAt(saved.getCancelledAt())
                 .build();
     }
 
@@ -74,6 +77,7 @@ public class AppointmentService {
                         .startTime(a.getStartTime())
                         .endTime(a.getEndTime())
                         .status(a.getStatus())
+                        .cancelledAt(a.getCancelledAt())
                         .build())
                 .toList();
         return response;
@@ -93,6 +97,7 @@ public class AppointmentService {
                 .startTime(appt.getStartTime())
                 .endTime(appt.getEndTime())
                 .status(appt.getStatus())
+                .cancelledAt(appt.getCancelledAt())
                 .build();
     }
 
@@ -133,6 +138,7 @@ public class AppointmentService {
                 .startTime(saved.getStartTime())
                 .endTime(saved.getEndTime())
                 .status(saved.getStatus())
+                .cancelledAt(saved.getCancelledAt())
                 .build();
 
     }
@@ -141,5 +147,42 @@ public class AppointmentService {
         Appointment appt = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
         appointmentRepository.delete(appt);
+    }
+
+    public AppointmentResponseDTO cancelAppointment(UUID id) {
+        Appointment appt = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        // If already cancelled, return as-is (idempotent)
+        if (appt.getStatus() == AppointmentStatusEnum.CANCELLED) {
+            return AppointmentResponseDTO.builder()
+                    .apptId(appt.getApptId())
+                    .studentId(appt.getStudent().getId())
+                    .tutorId(appt.getTutor().getId())
+                    .subjectId(appt.getSubject().getSubjectId())
+                    .roomId(appt.getRoom().getRoomId())
+                    .startTime(appt.getStartTime())
+                    .endTime(appt.getEndTime())
+                    .status(appt.getStatus())
+                    .cancelledAt(appt.getCancelledAt())
+                    .build();
+        }
+
+        appt.setStatus(AppointmentStatusEnum.CANCELLED);
+        appt.setCancelledAt(Instant.now());
+
+        Appointment saved = appointmentRepository.save(appt);
+
+        return AppointmentResponseDTO.builder()
+                .apptId(saved.getApptId())
+                .studentId(saved.getStudent().getId())
+                .tutorId(saved.getTutor().getId())
+                .subjectId(saved.getSubject().getSubjectId())
+                .roomId(saved.getRoom().getRoomId())
+                .startTime(saved.getStartTime())
+                .endTime(saved.getEndTime())
+                .status(saved.getStatus())
+                .cancelledAt(saved.getCancelledAt())
+                .build();
     }
 }
