@@ -27,6 +27,15 @@ public class EnrollmentService {
         Subject sub = subjectRepository.findById(requestDTO.getSubjectId())
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
 
+        boolean alreadyEnrolled = enrollmentRepository.existsByStudent_IdAndSubject_SubjectId(
+                requestDTO.getStudentId(),
+                requestDTO.getSubjectId()
+        );
+
+        if (alreadyEnrolled) {
+            throw new RuntimeException("Student is already enrolled in this subject");
+        }
+
         Enrollment enrollment = Enrollment.builder()
                 .student(stu)
                 .subject(sub)
