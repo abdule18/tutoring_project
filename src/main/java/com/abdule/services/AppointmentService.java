@@ -7,6 +7,7 @@ import com.abdule.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import com.abdule.enums.AppointmentStatusEnum;
@@ -33,9 +34,8 @@ public class AppointmentService {
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 
-        if (request.getStartTime().isAfter(request.getEndTime())) {
-            throw new RuntimeException("Start time must be before end time");
-        }
+        validateTimeWindow(request.getStartTime(), request.getEndTime());
+        validateRoomAvailability(room.getRoomId(), request.getStartTime(), request.getEndTime(), null);
 
         Appointment appointment = Appointment.builder()
                 .student(stu)
@@ -106,6 +106,10 @@ public class AppointmentService {
         Appointment existingAppointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
+        if (existingAppointment.getStatus() == AppointmentStatusEnum.CANCELLED) {
+            throw new RuntimeException("Cancelled appointments cannot be updated");
+        }
+
         Student stu = studentRepository.findById(request.getStudentId())
                 .orElseThrow(() -> new RuntimeException("Student not found"));
         Tutor tutor = tutorRepository.findById(request.getTutorId())
@@ -115,9 +119,13 @@ public class AppointmentService {
         Room room = roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RuntimeException("Room not found"));
 
-        if (request.getStartTime().isAfter(request.getEndTime())) {
-            throw new RuntimeException("Start time must be before end time");
-        }
+        validateTimeWindow(request.getStartTime(), request.getEndTime());
+        validateRoomAvailability(
+                room.getRoomId(),
+                request.getStartTime(),
+                request.getEndTime(),
+                existingAppointment.getApptId()
+        );
 
         existingAppointment.setStudent(stu);
         existingAppointment.setTutor(tutor);
@@ -141,12 +149,6 @@ public class AppointmentService {
                 .cancelledAt(saved.getCancelledAt())
                 .build();
 
-    }
-
-    public void deleteAppointment(UUID id) {
-        Appointment appt = appointmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
-        appointmentRepository.delete(appt);
     }
 
     public AppointmentResponseDTO cancelAppointment(UUID id) {
@@ -184,5 +186,22 @@ public class AppointmentService {
                 .status(saved.getStatus())
                 .cancelledAt(saved.getCancelledAt())
                 .build();
+    }
+
+    private void validateTimeWindow(LocalDateTime start, LocalDateTime end) {
+        if (start == null || end == null) {
+            throw new RuntimeException("Start time and end time are required");
+        }
+        if (!start.isBefore(end)) {
+            throw new RuntimeException("Start time must be before end time");
+        }
+    }
+
+    private void validateRoomAvailability(UUID roomId, LocalDateTime start, LocalDateTime end, UUID excludeApptId) {
+        boolean conflict = appointmentRepository.existsRoomConflict(roomId, start, end, excludeApptId);
+
+        if (conflict) {
+            throw new RuntimeException("Room is already booked for the selected time window");
+        }
     }
 }
